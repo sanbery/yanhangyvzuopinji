@@ -1,0 +1,2843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叁百里 - 个人作品展示</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+        :root {
+            /* 优化后的颜色方案 */
+            --primary-color: #5c6bc0;
+            --primary-light: #8e99f3;
+            --primary-dark: #26418f;
+            --secondary-color: #26a69a;
+            --secondary-light: #64d8cb;
+            --secondary-dark: #00766c;
+            --accent-color: #ff5252;
+            --accent-light: #ff8a80;
+            --accent-dark: #c50e29;
+            --text-color: #212121;
+            --text-light: #757575;
+            --text-secondary: #9e9e9e;
+            --background-color: #f5f7fa;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+            --shadow-dark: rgba(0, 0, 0, 0.16);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景装饰 */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--gradient-1);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--gradient-2);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-3);
+            top: 50%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 30px var(--shadow-medium);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transition: width 0.4s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            padding: 5px 0;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* 主页视觉引导部分 */
+        .hero {
+            height: 100vh;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            letter-spacing: 2px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-description {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 背景装饰元素 */
+        .hero-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 内容部分通用样式 */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* 个人简介部分 */
+        .about {
+            background-color: white;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="2" fill="rgba(0,0,0,0.05)"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        .about-card h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .about-card h3 i {
+            margin-right: 15px;
+            color: var(--accent-color);
+            font-size: 24px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .about-card p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .about-card p strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .hobby-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .hobby-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hobby-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-1);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .hobby-item:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+
+        .hobby-icon {
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--accent-color);
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hobby-text {
+            flex: 1;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+
+        .hobby-video-btn {
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hobby-video-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hobby-video-btn:hover::before {
+            opacity: 1;
+        }
+
+        .hobby-video-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);
+        }
+
+        .hobby-video-btn i {
+            margin-right: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 证书展示 */
+        .certificates {
+            margin-top: 60px;
+        }
+
+        .certificate-container {
+            margin-bottom: 40px;
+        }
+
+        .certificate-category {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .certificate-category i {
+            margin-right: 10px;
+            color: var(--accent-color);
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .certificate-scroll {
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #f1f1f1;
+        }
+
+        .certificate-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .certificate-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .certificate-scroll::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 10px;
+        }
+
+        .certificate-grid {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+        }
+
+        .certificate-item {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .certificate-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .certificate-item:hover::after {
+            opacity: 0.1;
+        }
+
+        .certificate-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        .certificate-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .certificate-item:hover .certificate-img {
+            transform: scale(1.05);
+        }
+
+        .certificate-info {
+            padding: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certificate-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .certificate-info p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* 作品展示部分 */
+        .portfolio {
+            background-color: var(--background-color);
+            position: relative;
+        }
+
+        .portfolio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(0,0,0,0.03)" stroke-width="1"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .portfolio-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background-color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(92, 107, 192, 0.3);
+        }
+
+        .category-btn.active::before,
+        .category-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-info {
+            padding: 30px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .portfolio-info p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .portfolio-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .view-btn {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .view-btn:hover::before {
+            opacity: 1;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(92, 107, 192, 0.4);
+        }
+
+        .view-btn i {
+            margin-right: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .video-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 82, 82, 0.3);
+        }
+
+        .video-btn:hover::before {
+            transform: translateY(0);
+        }
+
+        .video-btn i {
+            margin-right: 8px;
+        }
+
+        /* 联系方式部分 */
+        .contact {
+            background-color: white;
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="2" fill="rgba(0,0,0,0.05)"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            margin-bottom: 30px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        .contact-card h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .contact-card h3 i {
+            margin-right: 15px;
+            color: var(--accent-color);
+            font-size: 24px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .contact-item:hover::before {
+            width: 100%;
+        }
+
+        .contact-item i {
+            margin-right: 20px;
+            color: var(--primary-color);
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .contact-item span {
+            font-size: 18px;
+            color: var(--text-color);
+        }
+
+        .social-media {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .qr-codes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .qr-item {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .qr-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .qr-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+        }
+
+        .qr-img-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px var(--shadow-light);
+        }
+
+        .qr-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .qr-item:hover .qr-img {
+            transform: scale(1.05);
+        }
+
+        .qr-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .qr-preview img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-item:hover .qr-preview {
+            opacity: 1;
+        }
+
+        .qr-item h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .qr-item p {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--gradient-1);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .footer p {
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-codes {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            width: 80%;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .modal-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .playback-rate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rate-select {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* 滚动显示动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 磨砂玻璃效果增强 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        /* 悬浮效果 */
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        /* 作品标签样式 */
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);
+        }
+
+        /* 作品计数器 */
+        .counter {
+            font-size: 64px;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        /* 特色作品标记 */
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient-2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(255, 82, 82, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        /* 作品类别标题 */
+        .category-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 60px 0 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* 更多展示按钮样式 */
+        .more-images-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .more-images-btn:hover {
+            background: var(--gradient-1);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .more-images-btn i {
+            margin-right: 5px;
+        }
+
+        /* 图片画廊模态框样式 */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .gallery-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        .gallery-main-image {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-main-image:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .gallery-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-nav:hover {
+            background: var(--gradient-1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-prev {
+            left: 20px;
+        }
+
+        .gallery-next {
+            right: 20px;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-close:hover {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
+
+        .gallery-info {
+            margin-top: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        .gallery-counter {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .gallery-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(92, 107, 192, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(92, 107, 192, 0.4);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(92, 107, 192, 0.6);
+        }
+
+        /* 波纹效果 */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .ripple:active::before {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">叁百里</a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">个人简介</a></li>
+                <li><a href="#portfolio">作品展示</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主页视觉引导部分 -->
+    <section id="home" class="hero">
+        <div class="hero-bg-shape shape-1"></div>
+        <div class="hero-bg-shape shape-2"></div>
+        <div class="hero-bg-shape shape-3"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">叁百里</h1>
+            <h2 class="hero-subtitle">设计学硕士 · 工艺美术设计</h2>
+            <p class="hero-description">立志做新时代新青年，用创意与技艺诠释传统与现代的完美融合</p>
+            <a href="#portfolio" class="cta-button">查看作品</a>
+        </div>
+    </section>
+
+    <!-- 个人简介部分 -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">个人简介</h2>
+            <div class="about-content">
+                <div class="about-card fade-in">
+                    <h3><i class="fas fa-user"></i> 基本信息</h3>
+                    <p><strong>姓名：</strong>闫航宇</p>
+                    <p><strong>昵称：</strong>叁百里</p>
+                    <p><strong>学历：</strong>设计学硕士</p>
+                    <p><strong>专业方向：</strong>工艺美术设计</p>
+                </div>
+                <div class="about-card fade-in">
+                    <h3><i class="fas fa-heart"></i> 兴趣爱好</h3>
+                    <ul class="hobby-list">
+                        <li class="hobby-item">
+                            <span class="hobby-icon">🏛️</span>
+                            <span class="hobby-text">逛博物馆探索历史文化的魅力</span>
+                        </li>
+                        <li class="hobby-item">
+                            <span class="hobby-icon">🎨</span>
+                            <span class="hobby-text">篆刻传统艺术的现代表达</span>
+                        </li>
+                        <li class="hobby-item">
+                            <span class="hobby-icon">🎸</span>
+                            <span class="hobby-text">弹吉他音乐中的情感释放</span>
+                            <button class="hobby-video-btn" data-video="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/8a36a360fe38491cba8a0817b9b7b4dc.mp4~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758813486&x-signature=2wX82UELmAr2KcC2dg0%2BVeFy8AQ%3D">
+                                <i class="fas fa-play"></i>查看视频
+                            </button>
+                        </li>
+                        <li class="hobby-item">
+                            <span class="hobby-icon">💃</span>
+                            <span class="hobby-text">街舞律动中的自由表达</span>
+                            <button class="hobby-video-btn" data-video="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/f1cb714acc3c4b15bae6f3231c8ddb4f.mp4~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758813508&x-signature=Ow268NE9xS1lKUsMjDXWj2WrICo%3D">
+                                <i class="fas fa-play"></i>查看视频
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="certificates">
+                <h3 class="section-title">获奖证书</h3>
+                
+                <!-- 玉雕行业获奖证书 -->
+                <div class="certificate-container fade-in">
+                    <div class="certificate-category">
+                        <i class="fas fa-award"></i> 玉雕行业获奖证书
+                    </div>
+                    <div class="certificate-scroll">
+                        <div class="certificate-grid">
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/b243d9bb-9aba-4668-993d-265cd5a9e485.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/b243d9bb-9aba-4668-993d-265cd5a9e485.jpg" alt="天工玉石雕刻作品大赛提名奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>天工玉石雕刻作品大赛</h4>
+                                    <p>提名奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/fff70720-9e6f-4e5c-b22e-43e1c5ba1717.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/fff70720-9e6f-4e5c-b22e-43e1c5ba1717.jpg" alt="天工玉石雕刻作品大赛收藏证书" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>天工玉石雕刻作品大赛</h4>
+                                    <p>收藏证书</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/a97de041-049c-45bc-9f36-242b6a07500b.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/a97de041-049c-45bc-9f36-242b6a07500b.jpg" alt="玉星杯玉石雕刻作品大赛银奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>银奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/70c8cc42-2f73-4867-8c77-f9464dff0e28.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/70c8cc42-2f73-4867-8c77-f9464dff0e28.jpg" alt="玉星杯玉石雕刻作品大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/6a1df16c-baf9-41de-884c-042a35cf482d.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/6a1df16c-baf9-41de-884c-042a35cf482d.jpg" alt="红玛瑙杯玉石雕刻大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>红玛瑙杯玉石雕刻大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/9cb2d94d-32a5-4cdb-b958-72fe97fe11b0.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/9cb2d94d-32a5-4cdb-b958-72fe97fe11b0.jpg" alt="红玛瑙杯玉石雕刻大赛提名奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>红玛瑙杯玉石雕刻大赛</h4>
+                                    <p>提名奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/3a67138d-7706-46f3-afab-74412f4fc7d9.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/3a67138d-7706-46f3-afab-74412f4fc7d9.jpg" alt="玉星杯玉石雕刻作品大赛银奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>银奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/eab97488-1e91-4739-970d-cfc026d1c7ac.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/eab97488-1e91-4739-970d-cfc026d1c7ac.jpg" alt="玉星杯玉石雕刻作品大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/e939bfda-a34d-4937-8bce-b6b2ff82d765.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/e939bfda-a34d-4937-8bce-b6b2ff82d765.jpg" alt="玉星杯玉石雕刻作品大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/75bef702-b2c4-4d61-8d7e-ae59994de09b.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/75bef702-b2c4-4d61-8d7e-ae59994de09b.jpg" alt="玉星杯玉石雕刻作品大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>玉星杯玉石雕刻作品大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 设计类专业比赛获奖证书 -->
+                <div class="certificate-container fade-in">
+                    <div class="certificate-category">
+                        <i class="fas fa-trophy"></i> 设计类专业比赛获奖证书
+                    </div>
+                    <div class="certificate-scroll">
+                        <div class="certificate-grid">
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/67364a9f-7853-4687-9d8e-7a61bd57f688.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/67364a9f-7853-4687-9d8e-7a61bd57f688.jpg" alt="星海奖大学生海洋文化创意设计大赛铜奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>星海奖大学生海洋文化创意设计大赛</h4>
+                                    <p>铜奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/7d98166c-0a92-434f-b539-5c9d81cb877e.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/7d98166c-0a92-434f-b539-5c9d81cb877e.jpg" alt="第嘉杯中华优秀传统文化创新设计大赛二等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>第嘉杯中华优秀传统文化创新设计大赛</h4>
+                                    <p>二等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/417eada9-92ca-4cec-a48d-a346aee76042.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/417eada9-92ca-4cec-a48d-a346aee76042.jpg" alt="研究生文化中国两创大赛三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>研究生文化中国两创大赛</h4>
+                                    <p>三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/1811782e-1bb7-4fc1-86d8-09a8891568f4.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/1811782e-1bb7-4fc1-86d8-09a8891568f4.jpg" alt="两岸新锐设计竞赛华灿奖三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>两岸新锐设计竞赛华灿奖</h4>
+                                    <p>三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/5b91c1bc-f9b1-4ac9-a9e6-617a759cd5cd.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/5b91c1bc-f9b1-4ac9-a9e6-617a759cd5cd.jpg" alt="全国大学生数字媒体科技作品竞赛三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>全国大学生数字媒体科技作品竞赛</h4>
+                                    <p>三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/01252ecc-5b0d-45f0-8a45-732b7b322f39.jpg')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/01252ecc-5b0d-45f0-8a45-732b7b322f39.jpg" alt="全国大学生数字媒体科技作品竞赛三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>全国大学生数字媒体科技作品竞赛</h4>
+                                    <p>三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/3438230d-f4c3-4d85-bf77-78e84c38b7c9.png')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/3438230d-f4c3-4d85-bf77-78e84c38b7c9.png" alt="米兰设计周中国高校设计学科师生优秀作品展辽宁赛区二等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>米兰设计周中国高校设计学科师生优秀作品展</h4>
+                                    <p>辽宁赛区二等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/3cafd1da-256d-4a75-bc22-38a89d51d35e.png')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/3cafd1da-256d-4a75-bc22-38a89d51d35e.png" alt="米兰设计周中国高校设计学科师生优秀作品展全国决赛三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>米兰设计周中国高校设计学科师生优秀作品展</h4>
+                                    <p>全国决赛三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/5ef27ee7-55c3-4497-b064-7841acceb5a6.png')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/5ef27ee7-55c3-4497-b064-7841acceb5a6.png" alt="米兰设计周中国高校设计学科师生优秀作品展全国决赛三等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>米兰设计周中国高校设计学科师生优秀作品展</h4>
+                                    <p>全国决赛三等奖</p>
+                                </div>
+                            </div>
+                            <div class="certificate-item" onclick="openModal('https://sfile.chatglm.cn/chatglm4/66f55f6a-f729-43e3-9d24-e9ad626c8781.png')">
+                                <img src="https://sfile.chatglm.cn/chatglm4/66f55f6a-f729-43e3-9d24-e9ad626c8781.png" alt="米兰设计周中国高校设计学科师生优秀作品展辽宁赛区二等奖" class="certificate-img">
+                                <div class="certificate-info">
+                                    <h4>米兰设计周中国高校设计学科师生优秀作品展</h4>
+                                    <p>辽宁赛区二等奖</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示部分 -->
+    <section id="portfolio" class="section portfolio">
+        <div class="container">
+            <h2 class="section-title">作品展示</h2>
+            
+            <!-- 作品统计 -->
+            <div class="flex justify-center mb-16">
+                <div class="flex flex-wrap justify-center gap-12">
+                    <div class="text-center fade-in">
+                        <div class="counter">4</div>
+                        <div class="text-gray-600 text-lg">玉雕作品</div>
+                    </div>
+                    <div class="text-center fade-in">
+                        <div class="counter">6</div>
+                        <div class="text-gray-600 text-lg">原创设计</div>
+                    </div>
+                    <div class="text-center fade-in">
+                        <div class="counter">6</div>
+                        <div class="text-gray-600 text-lg">篆刻作品</div>
+                    </div>
+                    <div class="text-center fade-in">
+                        <div class="counter">6</div>
+                        <div class="text-gray-600 text-lg">文字作品</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-categories">
+                <button class="category-btn active" data-category="all">全部作品</button>
+                <button class="category-btn" data-category="jade">玉雕作品</button>
+                <button class="category-btn" data-category="design">原创设计</button>
+                <button class="category-btn" data-category="seal">篆刻作品</button>
+                <button class="category-btn" data-category="text">文字作品</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- 玉雕作品 -->
+                <div class="portfolio-item fade-in" data-category="jade">
+                    <div class="relative">
+                        <span class="featured-badge">精选作品</span>
+                        <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/70a0980ecba54faa8f412db457eaaf5f.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=PIT4LwEnxwsdMCxO4Dr9KVLFa90%3D" alt="游" class="portfolio-img">
+                        <button class="more-images-btn" onclick="openImageGallery('you')">
+                            <i class="fas fa-images"></i>更多展示
+                        </button>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>游</h3>
+                        <div class="mb-3">
+                            <span class="tag">玉雕</span>
+                            <span class="tag">传统工艺</span>
+                        </div>
+                        <p>每个人都在游，游于责任之下生活的玻璃，游于表情后心与心的猜忌，游于已知和未知的汪洋海来寻着真理...</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/70a0980ecba54faa8f412db457eaaf5f.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=PIT4LwEnxwsdMCxO4Dr9KVLFa90%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                            <button class="video-btn" data-video="https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/d5881e40b5f942579584a81d86444e5e.mp4~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758813325&x-signature=9XEJakAmcDluY7t9kzjq5rp9MCU%3D"><i class="fas fa-play"></i>视频讲解</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="jade">
+                    <div class="relative">
+                        <span class="featured-badge">精选作品</span>
+                        <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/618425706fa541feb548f0d795e39cf6.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=vwj%2FlfU1JNf5kMrs6mDXHiN4OP8%3D" alt="马观" class="portfolio-img">
+                        <button class="more-images-btn" onclick="openImageGallery('maguan')">
+                            <i class="fas fa-images"></i>更多展示
+                        </button>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>回首·马观</h3>
+                        <div class="mb-3">
+                            <span class="tag">玉雕</span>
+                            <span class="tag">动物题材</span>
+                        </div>
+                        <p>马的形态与观察视角的艺术表达</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/618425706fa541feb548f0d795e39cf6.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=vwj%2FlfU1JNf5kMrs6mDXHiN4OP8%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                            <button class="video-btn" data-video="https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/d965bdee2e9d4719b3c172cc2c992193.mp4~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758813468&x-signature=PASE9BWs21dj6Z3LOoLVABkkaTs%3D"><i class="fas fa-play"></i>视频讲解</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="jade">
+                    <div class="relative">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/8a2fe1340b0a4a458c428fe0ebe21051.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=BZ1Q9b4ST6Xv7sm8g1d2euWbpUg%3D" alt="宁为玉碎·临" class="portfolio-img">
+                    <button class="more-images-btn" onclick="openImageGallery('lin')">
+                        <i class="fas fa-images"></i>更多展示
+                     </button>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>宁为玉碎·临</h3>
+                        <div class="mb-3">
+                            <span class="tag">玉雕</span>
+                            <span class="tag">文化寓意</span>
+                        </div>
+                        <p>体现坚韧品格的玉雕创作</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/8a2fe1340b0a4a458c428fe0ebe21051.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=BZ1Q9b4ST6Xv7sm8g1d2euWbpUg%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="jade">
+                    <div class="relative">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/b0b336d41e5c41cd86cd4b479249f1b0.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=JshlAasJlqnX5w%2BV4GcyOBy%2BTjQ%3D" alt="水濑之声" class="portfolio-img">
+                    <button class="more-images-btn" onclick="openImageGallery('shuilai')">
+                        <i class="fas fa-images"></i>更多展示
+                    </button>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>水濑之声</h3>
+                        <div class="mb-3">
+                            <span class="tag">玉雕</span>
+                            <span class="tag">自然生态</span>
+                        </div>
+                        <p>自然生态主题的玉雕作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/b0b336d41e5c41cd86cd4b479249f1b0.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=JshlAasJlqnX5w%2BV4GcyOBy%2BTjQ%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 原创设计作品 -->
+                <div class="portfolio-item fade-in" data-category="design">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/5683bd8f62814641b8af0c91b50edcd2.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=kuRoDdr9lFc0lFgFR76pqL8DyAM%3D" alt="源·山海经主题IP形象设计" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>源·山海经主题IP形象设计</h3>
+                        <div class="mb-3">
+                            <span class="tag">IP设计</span>
+                            <span class="tag">传统文化</span>
+                        </div>
+                        <p>基于中国古典神话《山海经》的IP形象设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/5683bd8f62814641b8af0c91b50edcd2.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=kuRoDdr9lFc0lFgFR76pqL8DyAM%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="design">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/356d87438ff94249a6d1e0fbd20d68a8.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=G8Q8ZzTOoFuuvG5uk2rTbqx%2BTls%3D" alt="想云系列首饰设计" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>想云系列首饰设计</h3>
+                        <div class="mb-3">
+                            <span class="tag">首饰设计</span>
+                            <span class="tag">系列产品</span>
+                        </div>
+                        <p>灵感来源于云朵形态的首饰系列设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/356d87438ff94249a6d1e0fbd20d68a8.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=G8Q8ZzTOoFuuvG5uk2rTbqx%2BTls%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="design">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/651e8548d58b43c1aab85885b72964be.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=cOn9bp3xtPyxBQWoX2b3ro9EnG8%3D" alt="灯苗·氛围香薰机" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>灯苗·氛围香薰机</h3>
+                        <div class="mb-3">
+                            <span class="tag">产品设计</span>
+                            <span class="tag">家居用品</span>
+                        </div>
+                        <p>结合照明与香薰功能的多功能产品设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/651e8548d58b43c1aab85885b72964be.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=cOn9bp3xtPyxBQWoX2b3ro9EnG8%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="design">
+                    <div class="relative">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/1b8fd556e49b490bb01c24f8f0e92dc9.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=JEQ0G6VJ5qbI2BjS6i%2F%2FNtf9ItA%3D" alt="十二钗盲盒文创设计" class="portfolio-img">
+                    <button class="more-images-btn" onclick="openImageGallery('shierchai')">
+                        <i class="fas fa-images"></i>更多展示
+                    </button>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>十二钗盲盒文创设计</h3>
+                        <div class="mb-3">
+                            <span class="tag">文创设计</span>
+                            <span class="tag">盲盒</span>
+                        </div>
+                        <p>基于《红楼梦》十二金钗的盲盒文创产品设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/1b8fd556e49b490bb01c24f8f0e92dc9.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=JEQ0G6VJ5qbI2BjS6i%2F%2FNtf9ItA%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="design">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/db90bc3ef37c4439a07d9ae31d7b9beb.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=njwCdKPmlbiMCrXYzcH4dnx1hcc%3D" alt="可移动充电景观灯" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>可移动充电景观灯</h3>
+                        <div class="mb-3">
+                            <span class="tag">产品设计</span>
+                            <span class="tag">智能设备</span>
+                        </div>
+                        <p>结合充电功能的便携式景观灯具设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/db90bc3ef37c4439a07d9ae31d7b9beb.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=njwCdKPmlbiMCrXYzcH4dnx1hcc%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="design">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/25d13a3f430a442da51930350f536614.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=M9t0zUuiss2snUzr6A64TdY7j7k%3D" alt="企鹅仿生香薰机" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>企鹅仿生香薰机</h3>
+                        <div class="mb-3">
+                            <span class="tag">产品设计</span>
+                            <span class="tag">仿生设计</span>
+                        </div>
+                        <p>仿生学原理的企鹅造型香薰机设计</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/25d13a3f430a442da51930350f536614.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873128&x-signature=M9t0zUuiss2snUzr6A64TdY7j7k%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 篆刻作品 -->
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/d0747d66d5bd43bead91675d54b51dbd.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=NUcYTwDnhEcx1PR0FkWYL696ZuU%3D" alt="万事胜意" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>万事胜意</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">祝福</span>
+                        </div>
+                        <p>传统篆刻艺术作品，寓意美好祝福</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/d0747d66d5bd43bead91675d54b51dbd.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=NUcYTwDnhEcx1PR0FkWYL696ZuU%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/b1e471eb060f45a2bff5d859e9af037b.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=NxP1Tmifa6igt0dJx8dFbFaulPI%3D" alt="求索" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>求索</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">哲理</span>
+                        </div>
+                        <p>表达探索精神的篆刻作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/b1e471eb060f45a2bff5d859e9af037b.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=NxP1Tmifa6igt0dJx8dFbFaulPI%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/3c7a39dad4354a5daf99c8515f8c13fc.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=tJfS0x2DCMOjU3vYSFm6cDvLNc4%3D" alt="金榜题名" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>金榜题名</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">传统祝福</span>
+                        </div>
+                        <p>传统祝福主题的篆刻作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/3c7a39dad4354a5daf99c8515f8c13fc.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=tJfS0x2DCMOjU3vYSFm6cDvLNc4%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/31579bac29fc4adc9d3bc6fbe73857b1.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=T6tqTDxFCUhub55EF5zncFtYkh0%3D" alt="堂开物华" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>堂开物华</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">吉祥寓意</span>
+                        </div>
+                        <p>寓意繁荣昌盛的篆刻作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/31579bac29fc4adc9d3bc6fbe73857b1.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=T6tqTDxFCUhub55EF5zncFtYkh0%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/51af0451441e4044a1b5d5b6b2c6b7a3.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=OsjeAFRZFYLuBZZkk2U0aFkIz1k%3D" alt="闫航宇印" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>闫航宇印</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">姓名印章</span>
+                        </div>
+                        <p>个人姓名印章篆刻作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/51af0451441e4044a1b5d5b6b2c6b7a3.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=OsjeAFRZFYLuBZZkk2U0aFkIz1k%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="seal">
+                    <img src="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/ddf1b3165e2d40f5af10ae6244e6ac17.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=zQ0jAW4gp7SBXEm9%2FCIKiF1P%2FZY%3D" alt="无为" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>无为</h3>
+                        <div class="mb-3">
+                            <span class="tag">篆刻</span>
+                            <span class="tag">道家思想</span>
+                        </div>
+                        <p>道家思想主题的篆刻作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/ddf1b3165e2d40f5af10ae6244e6ac17.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873417&x-signature=zQ0jAW4gp7SBXEm9%2FCIKiF1P%2FZY%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文字作品 -->
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/e8dddcc35431400a8b75385115f4036f.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=I7fizFU2Ny8N7THONLU7MDJZOWs%3D" alt="表达情感的文字" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>表达情感的文字</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">情感表达</span>
+                        </div>
+                        <p>情感主题的文字创作作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/e8dddcc35431400a8b75385115f4036f.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=I7fizFU2Ny8N7THONLU7MDJZOWs%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/8b0cd7cf2ef440c2b47ef6bb96d048ad.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=i532GHwGYQpjCz7YZLP%2Fo8UdDoI%3D" alt="人生两条腿" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>人生两条腿</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">人生哲理</span>
+                        </div>
+                        <p>人生哲理主题的文字创作</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/8b0cd7cf2ef440c2b47ef6bb96d048ad.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=i532GHwGYQpjCz7YZLP%2Fo8UdDoI%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/3a4a686866f94f628ec4251d36d9f3c0.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=BJGgR16egdAvxBKffp%2FKNg1X%2Bb8%3D" alt="命中注定" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>命中注定</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">命运思考</span>
+                        </div>
+                        <p>命运主题的文字创作作品</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/3a4a686866f94f628ec4251d36d9f3c0.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=BJGgR16egdAvxBKffp%2FKNg1X%2Bb8%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/bdb05b2675ea44b58fe50e48c29b772f.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=QRoMgVtKb%2FsnNojKa7ygksaloiI%3D" alt="瞬间产生" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>瞬间产生</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">灵感捕捉</span>
+                        </div>
+                        <p>灵感主题的文字创作</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/bdb05b2675ea44b58fe50e48c29b772f.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=QRoMgVtKb%2FsnNojKa7ygksaloiI%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/eb79b8dd8c6042558eec310f96e179a5.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=UwtZ1zM4R1K8HwL93cgEmYBE5No%3D" alt="意愿的朝向" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>意愿的朝向</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">意志力</span>
+                        </div>
+                        <p>意志力主题的文字创作</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/eb79b8dd8c6042558eec310f96e179a5.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=UwtZ1zM4R1K8HwL93cgEmYBE5No%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in" data-category="text">
+                    <img src="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/6625b43e0c934e90b77ea6213485cb8c.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=pUXpOCHER7XYaJzvhwAMYOud%2Bn4%3D" alt="装饰" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>装饰</h3>
+                        <div class="mb-3">
+                            <span class="tag">文字创作</span>
+                            <span class="tag">美学思考</span>
+                        </div>
+                        <p>美学主题的文字创作</p>
+                        <div class="portfolio-actions">
+                            <button class="view-btn" data-img="https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/6625b43e0c934e90b77ea6213485cb8c.png~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758873469&x-signature=pUXpOCHER7XYaJzvhwAMYOud%2Bn4%3D"><i class="fas fa-search-plus"></i>查看大图</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式部分 -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">联系方式</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card fade-in glass-effect">
+                        <h3><i class="fas fa-envelope"></i> 联系信息</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>QQ邮箱：643202786@qq.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>电话号码：18524334849</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-comment"></i>
+                            <span>微信号：YHY643202786</span>
+                        </div>
+                    </div>
+                    <div class="contact-card fade-in glass-effect">
+                        <h3><i class="fas fa-handshake"></i> 关于合作</h3>
+                        <p>作为设计学硕士，专注于工艺美术设计领域，擅长玉雕制作、原创设计、篆刻艺术等多个方向。欢迎设计合作、艺术交流、学术讨论等各种形式的合作机会。让我们一起创造更多精彩的作品！</p>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>工作时间：周一至周五 9:00-18:00</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>周末：10:00-16:00</span>
+                        </div>
+                        <p style="font-size: 14px; color: var(--light-text); margin-top: 10px;">* 紧急事务可随时联系，我会尽快回复</p>
+                    </div>
+                </div>
+                <div class="social-media">
+                    <h3 style="text-align: center; margin-bottom: 40px; color: var(--primary-color); font-size: 32px; font-weight: 700;">社交媒体</h3>
+                    <div class="qr-codes">
+                        <div class="qr-item fade-in glass-effect hover-lift">
+                            <div class="qr-img-container">
+                                <img src="https://sfile.chatglm.cn/chatglm4/952ec0bf-9817-4ab5-a45a-9493b5f0bdd7.jpg" alt="微信二维码" class="qr-img">
+                                <div class="qr-preview">
+                                    <img src="https://sfile.chatglm.cn/chatglm4/952ec0bf-9817-4ab5-a45a-9493b5f0bdd7.jpg" alt="微信二维码">
+                                </div>
+                            </div>
+                            <h4>微信</h4>
+                            <p>扫码添加微信好友</p>
+                        </div>
+                        <div class="qr-item fade-in glass-effect hover-lift">
+                            <div class="qr-img-container">
+                                <img src="https://sfile.chatglm.cn/chatglm4/2a057413-b567-4614-9bbd-0a7d48055a56.jpg" alt="抖音二维码" class="qr-img">
+                                <div class="qr-preview">
+                                    <img src="https://sfile.chatglm.cn/chatglm4/2a057413-b567-4614-9bbd-0a7d48055a56.jpg" alt="抖音二维码">
+                                </div>
+                            </div>
+                            <h4>抖音</h4>
+                            <p>关注我的抖音账号</p>
+                        </div>
+                        <div class="qr-item fade-in glass-effect hover-lift">
+                            <div class="qr-img-container">
+                                <img src="https://sfile.chatglm.cn/chatglm4/db70e9d0-0b67-400f-8043-4a7ceaef0de4.jpg" alt="B站二维码" class="qr-img">
+                                <div class="qr-preview">
+                                    <img src="https://sfile.chatglm.cn/chatglm4/db70e9d0-0b67-400f-8043-4a7ceaef0de4.jpg" alt="B站二维码">
+                                </div>
+                            </div>
+                            <h4>B站</h4>
+                            <p>订阅我的B站频道</p>
+                        </div>
+                        <div class="qr-item fade-in glass-effect hover-lift">
+                            <div class="qr-img-container">
+                                <img src="https://sfile.chatglm.cn/chatglm4/f4da2171-c0e2-43a0-b6f6-825f730720ae.jpg" alt="小红书二维码" class="qr-img">
+                                <div class="qr-preview">
+                                    <img src="https://sfile.chatglm.cn/chatglm4/f4da2171-c0e2-43a0-b6f6-825f730720ae.jpg" alt="小红书二维码">
+                                </div>
+                            </div>
+                            <h4>小红书</h4>
+                            <p>关注我的小红书</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 叁百里 · 闫航宇 | 设计学硕士 · 工艺美术设计 | 立志做新时代新青年！！！</p>
+        </div>
+    </footer>
+
+    <!-- 模态框 -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img src="" alt="" class="modal-img">
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="video-container">
+                <video class="modal-video" controls>
+                    <source src="" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+            <div class="video-controls">
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                </div>
+                <div class="playback-rate">
+                    <label for="playback-rate">播放速度：</label>
+                    <select id="playback-rate" class="rate-select">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片画廊模态框 -->
+    <div id="galleryModal" class="gallery-modal">
+        <div class="gallery-content">
+            <button class="gallery-close">&times;</button>
+            <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
+            
+            <img src="" alt="" class="gallery-main-image" id="galleryMainImage">
+            
+            <div class="gallery-info">
+                <div class="gallery-counter" id="galleryCounter">1 / 4</div>
+                <div class="gallery-description" id="galleryDescription"></div>
+            </div>
+            
+            <div class="gallery-thumbnails" id="galleryThumbnails">
+                <!-- 缩略图将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'var(--glass-bg)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 作品分类筛选
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 更新按钮状态
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 筛选作品
+                const category = btn.getAttribute('data-category');
+                portfolioItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // 图片模态框
+        const imageModal = document.getElementById('imageModal');
+        const modalImg = document.querySelector('.modal-img');
+        const viewBtns = document.querySelectorAll('.view-btn');
+
+        function openModal(imgSrc) {
+            modalImg.src = imgSrc;
+            imageModal.style.display = 'flex';
+        }
+
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const imgSrc = btn.getAttribute('data-img');
+                openModal(imgSrc);
+            });
+        });
+
+        // 视频模态框
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.querySelector('.modal-video');
+        const videoBtns = document.querySelectorAll('.video-btn');
+        const hobbyVideoBtns = document.querySelectorAll('.hobby-video-btn');
+        const volumeSlider = document.querySelector('.volume-slider');
+        const playbackRateSelect = document.getElementById('playback-rate');
+
+        function openVideoModal(videoSrc) {
+            modalVideo.src = videoSrc;
+            videoModal.style.display = 'flex';
+            // 重置播放速度和音量
+            modalVideo.playbackRate = 1;
+            playbackRateSelect.value = 1;
+            modalVideo.volume = 1;
+            volumeSlider.value = 1;
+        }
+
+        // 作品展示视频按钮
+        videoBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const videoSrc = btn.getAttribute('data-video');
+                openVideoModal(videoSrc);
+            });
+        });
+
+        // 兴趣爱好视频按钮
+        hobbyVideoBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const videoSrc = btn.getAttribute('data-video');
+                openVideoModal(videoSrc);
+            });
+        });
+
+        // 音量控制
+        volumeSlider.addEventListener('input', () => {
+            modalVideo.volume = volumeSlider.value;
+        });
+
+        // 播放速度控制
+        playbackRateSelect.addEventListener('change', () => {
+            modalVideo.playbackRate = parseFloat(playbackRateSelect.value);
+        });
+
+        // 关闭模态框
+        const closeBtns = document.querySelectorAll('.modal-close');
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+                videoModal.style.display = 'none';
+                modalVideo.pause();
+            });
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+            }
+            if (e.target === videoModal) {
+                videoModal.style.display = 'none';
+                modalVideo.pause();
+            }
+        });
+
+        // 滚动显示动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有需要动画的元素
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 数字计数动画
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const countUp = (counter) => {
+            const target = +counter.innerText;
+            const count = +counter.innerText;
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => countUp(counter), 10);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        // 触发计数动画
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    countUp(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // 图片画廊功能
+const galleryModal = document.getElementById('galleryModal');
+const galleryMainImage = document.getElementById('galleryMainImage');
+const galleryCounter = document.getElementById('galleryCounter');
+const galleryDescription = document.getElementById('galleryDescription');
+const galleryThumbnails = document.getElementById('galleryThumbnails');
+const galleryPrev = document.querySelector('.gallery-prev');
+const galleryNext = document.querySelector('.gallery-next');
+const galleryClose = document.querySelector('.gallery-close');
+
+// 图片集合数据（可扩展多个作品）
+const imageGalleries = {
+    'you': {
+        images: [
+            { src: 'https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/387d2234b9c04271b8ca9c2d138f007d.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871319&x-signature=KdGO4LdYuzjfM%2BjlID8SuxoFhKA%3D', description: '每个人都在游，游于责任之下生活的玻璃，游于表情后心与心的猜忌，游于已知和未知的汪洋海来寻着真理...' },
+            { src: 'https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/b8e337162d6a4dbe9f4bf7b5d62f25ce.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871319&x-signature=AfZp6YYx53K225RhbsY2pKxnGDc%3D', description: '水无形，而意有形。玉雕作品展现了传统工艺与现代设计的完美结合。' },
+            { src: 'https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/c1f954cad0464dd1863a1a52434c73b3.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871319&x-signature=T0UgKHNSZ%2BCFO5cXevEzaNK05IQ%3D', description: 'ROAM漫游，是将传统的玉雕和现代审美相结合的艺术作品。通过整体和局部、简与繁的对比打造独有中国意境。' },
+            { src: 'https://p3-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/70a0980ecba54faa8f412db457eaaf5f.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758870700&x-signature=PIT4LwEnxwsdMCxODr9KVLFa90%3D', description: '精雕细琢的玉雕作品，每一个细节都体现着匠人的用心与技艺。' }
+        ],
+        currentIndex: 0
+    },
+    'maguan': {
+        images: [
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/444f8c6776524e41bb7d96335aff399f.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871851&x-signature=B%2B4RDldSlr6qAjUkffvrz8cOHQ8%3D', description: '将绘画中的留白巧妙应用于作品的构图中，平衡留白和非白之间的关键，使画面更加均衡。' },
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/1cf872ef62d94948a5e6b4a457e3248e.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871851&x-signature=6G7Iys9cgu%2B8zORwkwTI4M9iTE0%3D', description: '巧妙运用镜头语言突出主体物，赋予其别样的情感和艺术表达效果。' },
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/18a0933d1a19448487b38cb8f07fa68c.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871851&x-signature=gQlHJ9dufGZf0EybB4%2FdCNCRgaQ%3D', description: '巧妙运用镜头语言突出主体物，赋予其别样的情感和艺术表达效果。' },
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/214aa21ed32942b0a3a1cb6c1164d384.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758871851&x-signature=2yGe8oy5szgotcm0g8r0o%2BotUR4%3D', description: '通过不同角度全面展现该作品的特色，体现作品艺术和文化魅力。' }
+        ],
+        currentIndex: 0
+    },
+   'lin': {
+        images: [
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/710f725017ea4b3c9856393917aa86ba.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876011&x-signature=5hO0d7QzCWZAzZBOxwuVNa2dFRA%3D', description: '镜头聚焦于局部，玉石的质地赋予了作品一种神秘感。' },
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/ad48cd9ea3cd4718858e52559c136f63.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876011&x-signature=7%2FxVVC5YbVYyllJ8i5QJ%2B0kCFHI%3D', description: '临，是困难的降临，亦是面临困难时的态度。' },
+            { src: 'https://p6-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/779948e451f94b27964cf7f687d3c7db.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876011&x-signature=jWnkqG%2FFqgTiCSSWjKxinkIFfSA%3D', description: '水无形，而意有形。' },
+        ],
+        currentIndex: 0
+    },
+   'shuilai': {
+        images: [
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/52a1ef2c12324b7bb032546f8f9115ad.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876190&x-signature=S7w7acB02a%2F4J7ex7vwOQIq9ZQc%3D', description: '以水濑为媒介，展现生命与自然的关系。' },
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/c071f14cc94741f5b90b42a194690011.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876190&x-signature=LQAG0Pc3ngBwKZ95wczYQOb%2BmA8%3D', description: '捕捉水濑的灵动与柔美的瞬间，诠释生命的韧性。' },
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/47cbb29bfa2b43ab8783866bd119e74d.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876190&x-signature=C6Vcr8TvrAcTA3FM5rlkNZQfGJQ%3D', description: '以独特的视角展现水濑。' },
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/3b2d17b9e2a1455c8b8aa3978c1cd567.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876190&x-signature=tJB2tGvaiopXWnAj14lil24oBEc%3D', description: '用雕刻中的“色彩”和“线条”描绘水的流动与生命的律动。' },
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/bc6503af10464ee9848f8633ddbfc70f.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876190&x-signature=wc4uVKuz07Ko6oTsqq65Qp%2F8n%2Bo%3D', description: '以水濑灵感，创作出充满生命力的艺术作品。' },
+        ],
+        currentIndex: 0
+    },
+ 'shierchai': {
+        images: [
+            { src: 'https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/78c2eab369cd460aa204282211abe3a6.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1758876427&x-signature=rxsBnXtKKiXZaeioX%2FCmcXG3yYQ%3D', description: '十二钗，各具风华，艺术家以细腻的笔触展现女性之美与内在气质。' },
+        ],
+        currentIndex: 0
+    }
+
+    // 可继续添加其他作品，例如：
+    // 'newWork': {
+    //     images: [...],
+    //     currentIndex: 0
+    // }
+};
+
+let currentGallery = null;
+
+// 打开画廊
+function openImageGallery(galleryName) {
+    currentGallery = imageGalleries[galleryName];
+    if (!currentGallery) return;
+
+    currentGallery.currentIndex = 0;
+    updateGalleryDisplay();
+    generateThumbnails();
+    galleryModal.style.display = 'flex';
+}
+
+// 更新画廊显示
+function updateGalleryDisplay() {
+    if (!currentGallery) return;
+
+    const currentImage = currentGallery.images[currentGallery.currentIndex];
+    galleryMainImage.src = currentImage.src;
+    galleryMainImage.alt = currentImage.description;
+    galleryCounter.textContent = `${currentGallery.currentIndex + 1} / ${currentGallery.images.length}`;
+    galleryDescription.textContent = currentImage.description;
+
+    // 更新缩略图激活状态
+    const thumbnails = galleryThumbnails.querySelectorAll('.gallery-thumbnail');
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentGallery.currentIndex);
+    });
+}
+
+// 生成缩略图
+function generateThumbnails() {
+    if (!currentGallery) return;
+
+    galleryThumbnails.innerHTML = '';
+    currentGallery.images.forEach((image, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = image.src;
+        thumbnail.alt = image.description;
+        thumbnail.className = 'gallery-thumbnail';
+        if (index === 0) thumbnail.classList.add('active');
+        
+        thumbnail.addEventListener('click', () => {
+            currentGallery.currentIndex = index;
+            updateGalleryDisplay();
+        });
+        
+        galleryThumbnails.appendChild(thumbnail);
+    });
+}
+
+// 下一张
+function nextImage() {
+    if (!currentGallery) return;
+    currentGallery.currentIndex = (currentGallery.currentIndex + 1) % currentGallery.images.length;
+    updateGalleryDisplay();
+}
+
+// 上一张
+function prevImage() {
+    if (!currentGallery) return;
+    currentGallery.currentIndex = (currentGallery.currentIndex - 1 + currentGallery.images.length) % currentGallery.images.length;
+    updateGalleryDisplay();
+}
+
+// 关闭画廊
+function closeGallery() {
+    galleryModal.style.display = 'none';
+    currentGallery = null;
+}
+
+// 绑定事件
+galleryPrev.addEventListener('click', prevImage);
+galleryNext.addEventListener('click', nextImage);
+galleryClose.addEventListener('click', closeGallery);
+
+
+        // 事件监听器
+        galleryNext.addEventListener('click', nextImage);
+        galleryPrev.addEventListener('click', prevImage);
+        galleryClose.addEventListener('click', closeGallery);
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (galleryModal.style.display === 'flex') {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                    case 'Escape':
+                        closeGallery();
+                        break;
+                }
+            }
+        });
+
+        // 点击模态框外部关闭
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                closeGallery();
+            }
+        });
+    </script>
+</body>
+</html>
